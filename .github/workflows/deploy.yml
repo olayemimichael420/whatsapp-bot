@@ -1,0 +1,45 @@
+iname: Deploy WhatsApp Bot
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install python-telegram-bot flask requests
+      
+      - name: Run syntax check
+        run: |
+          python -m py_compile bot.py
+          python -m py_compile webhook_server.py
+          echo "✅ Syntax check passed"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.TERMUX_IP }}
+          username: ${{ secrets.TERMUX_USER }}
+          password: ${{ secrets.TERMUX_PASSWORD }}
+          script: |
+            cd ~/whatsapp-bot
+            git pull origin main
+            screen -S bot -X quit
+            screen -S bot -dm bash -c "python bot.py"
+            echo "✅ Bot deployment complete"
