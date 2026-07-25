@@ -155,12 +155,6 @@ SERVICE_CONFIG = {
         'headers': ["URL"],
         'prefix': 'extracted_urls',
         'help': 'Extract all URLs from text.'
-    },
-    'agents': {
-        'pattern': r'([A-Za-z\s]+):\s*([A-Za-z\s]+)\s*(\+?\d{10,15})',
-        'headers': ["Trade", "Name", "Phone Number"],
-        'prefix': 'service_agents',
-        'help': 'Extract ANY service agent (Mason, Plumber, Web Developer, etc.) – works for any trade!'
     }
 }
 
@@ -229,17 +223,6 @@ async def handle_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 if num not in seen:
                     seen.add(num)
                     unique_data.append((name, num))
-        elif service == 'agents':
-            matches = re.findall(pattern, content)
-            unique_data = []
-            seen = set()
-            for trade, name, num in matches:
-                clean_num = re.sub(r'[\s\-\(\)]', '', num)
-                if len(clean_num) >= 10:
-                    key = (trade.strip(), name.strip(), clean_num)
-                    if key not in seen:
-                        seen.add(key)
-                        unique_data.append(key)
         else:
             raw_matches = re.findall(pattern, content)
             if service in ('nin', 'bvn'):
@@ -260,9 +243,6 @@ async def handle_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
             if service == 'whatsapp':
                 for name, num in unique_data:
                     writer.writerow([name, num])
-            elif service == 'agents':
-                for trade, name, num in unique_data:
-                    writer.writerow([trade, name, num])
             else:
                 for item in unique_data:
                     writer.writerow([item])
@@ -296,22 +276,14 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🆔 NIN", callback_data="service_nin")],
         [InlineKeyboardButton("🏦 BVN", callback_data="service_bvn")],
         [InlineKeyboardButton("🔗 URLs", callback_data="service_urls")],
-        [InlineKeyboardButton("🔧 Service Agents", callback_data="service_agents")],
         [InlineKeyboardButton("💳 Upgrade to Pro", callback_data="pay_now")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "🚀 **KOSFintech Helper Bot**\n\n"
+        "🚀 **WhatsApp Helper Bot**\n\n"
         "Select a service below, then send a `.txt` file to extract data.\n\n"
-        "📞 WhatsApp Numbers – Extract names + phone numbers.\n"
-        "📧 Emails – Extract email addresses.\n"
-        "📱 Social Handles – Extract social media handles.\n"
-        "🆔 NIN – Extract 11-digit NIN numbers.\n"
-        "🏦 BVN – Extract 11-digit BVN numbers.\n"
-        "🔗 URLs – Extract all URLs.\n"
-        "🔧 Service Agents – Extract ANY service agent (Mason, Plumber, Web Developer, etc.) – no hardcoded list!\n\n"
-        "💡 Free trial: 3 uses total.\n"
-        "⭐ Pro: Unlimited + AI scoring.\n\n"
+        "💡 Free trial: 3 uses total (across all services).\n"
+        "⭐ Pro: Unlimited extractions + AI scoring.\n\n"
         "📋 Type `/commands` to see all available commands.",
         reply_markup=reply_markup
     )
@@ -328,7 +300,6 @@ async def commands_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "| /nin    | Extract 11‑digit NIN numbers |\n"
         "| /bvn    | Extract 11‑digit BVN numbers |\n"
         "| /urls   | Extract URLs from text |\n"
-        "| /agents | Extract ANY service agent (works for any trade) |\n"
         "| /help   | Show help information |\n"
         "| /guide  | How to export WhatsApp chat |\n"
         "| /roadmap | Project roadmap |\n"
@@ -356,7 +327,6 @@ async def social_command(update, context): await service_command(update, context
 async def nin_command(update, context): await service_command(update, context, 'nin')
 async def bvn_command(update, context): await service_command(update, context, 'bvn')
 async def urls_command(update, context): await service_command(update, context, 'urls')
-async def agents_command(update, context): await service_command(update, context, 'agents')
 
 async def service_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -368,7 +338,6 @@ async def service_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "service_nin": "nin",
         "service_bvn": "bvn",
         "service_urls": "urls",
-        "service_agents": "agents",
     }
     service = service_map.get(query.data)
     if service:
@@ -516,7 +485,6 @@ def main():
     app.add_handler(CommandHandler("nin", nin_command))
     app.add_handler(CommandHandler("bvn", bvn_command))
     app.add_handler(CommandHandler("urls", urls_command))
-    app.add_handler(CommandHandler("agents", agents_command))
     app.add_handler(CommandHandler("roadmap", roadmap_command))
     app.add_handler(CommandHandler("community", community_command))
     app.add_handler(CommandHandler("guide", guide_command))
@@ -531,8 +499,31 @@ def main():
     app.add_handler(MessageHandler(filters.Document.ALL, handle_file))
     app.add_error_handler(error_handler)
 
-    print("🤖 KOSFintech Helper Bot (Multi‑Service Edition) started...")
+    print("🤖 WhatsApp Helper Bot (Multi‑Service Edition) started...")
     app.run_polling(timeout=20, drop_pending_updates=True)
-
+app.add_handler(CommandHandler("commands", commands_command))
 if __name__ == "__main__":
     main()
+
+# ===== COMMANDS TABLE =====
+async def commands_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    commands_table = (
+        "📋 **Available Commands**\n\n"
+        "| Command | Description |\n"
+        "|---------|-------------|\n"
+        "| /start  | Show main menu and select a service |\n"
+        "| /whatsapp | Extract WhatsApp numbers (names + numbers) |\n"
+        "| /email  | Extract email addresses |\n"
+        "| /social | Extract social media handles |\n"
+        "| /nin    | Extract 11‑digit NIN numbers |\n"
+        "| /bvn    | Extract 11‑digit BVN numbers |\n"
+        "| /urls   | Extract URLs from text |\n"
+        "| /help   | Show help information |\n"
+        "| /guide  | How to export WhatsApp chat |\n"
+        "| /roadmap | Project roadmap |\n"
+        "| /community | Join our community group |\n"
+        "| /pay    | Upgrade to Pro (₦10,000/month) |\n"
+        "| /health | Bot health check (admin only) |\n"
+        "| /offer_status | Limited offer status (admin only) |\n"
+    )
+    await update.message.reply_text(commands_table, parse_mode="Markdown")

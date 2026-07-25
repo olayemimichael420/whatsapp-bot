@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Number Extractor Pro</title>
+    <link rel="stylesheet" href="/static/css/design_tokens.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .hero { background: var(--gradient-main); color: var(--white); padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: var(--step-3); margin-bottom: var(--space-md); }
+        .hero p { font-size: var(--step-1); max-width: 600px; margin: 0 auto var(--space-lg); opacity: 0.9; }
+        .features { padding: 60px 0; }
+        .features .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); }
+        .features .card { text-align: center; }
+        .features .card .icon { font-size: 40px; margin-bottom: var(--space-md); }
+        .footer { background: var(--dark); color: var(--white); padding: 40px 0; text-align: center; }
+        .footer a { color: var(--primary); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        .btn-white { background: var(--white); color: var(--primary); padding: 12px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
+        .btn-white:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .btn-white i { margin-right: 8px; }
+        .countdown { background: rgba(255,255,255,0.1); border-radius: 12px; padding: var(--space-md); display: inline-flex; gap: var(--space-lg); margin: var(--space-lg) 0; font-size: var(--step-2); font-weight: 700; color: var(--white); }
+        .countdown span { min-width: 60px; }
+        .countdown .label { font-size: var(--step--1); font-weight: 400; opacity: 0.7; display: block; }
+        .cta-buttons { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; }
+        @media (max-width: 640px) { .cta-buttons .btn { width: 100%; } }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <h1>🚀 WhatsApp Number Extractor Pro</h1>
+            <p>Extract Nigerian phone numbers from WhatsApp group chats instantly. Clean CSV, duplicate-free, AI-scored.</p>
+
+            <div class="countdown">
+                <div><span id="days">07</span><span class="label">Days</span></div>
+                <div><span id="hours">12</span><span class="label">Hours</span></div>
+                <div><span id="mins">45</span><span class="label">Mins</span></div>
+                <div><span id="secs">30</span><span class="label">Secs</span></div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://t.me/WhatsappHelperBot" class="btn-white"><i>🤖</i> Try Bot Now</a>
+                <a href="https://t.me/WhatsappHelperBot?start=pay" class="btn-green"><i>⭐</i> Upgrade to Pro</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align:center; margin-bottom: var(--space-xl);">✨ What You Get</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">📊</div>
+                    <h3>Clean CSV</h3>
+                    <p>Extracted numbers formatted, deduplicated, and ready for contacts.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🧠</div>
+                    <h3>AI Scoring</h3>
+                    <p>Active / Inactive / Unknown – know who to reach.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">📦</div>
+                    <h3>Batch Processing</h3>
+                    <p>Upload multiple files at once (Pro).</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🔁</div>
+                    <h3>Duplicate Detection</h3>
+                    <p>Detect numbers across groups.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">📁</div>
+                    <h3>CRM Export</h3>
+                    <p>Google Contacts, HubSpot, Salesforce ready.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🛡️</div>
+                    <h3>Privacy First</h3>
+                    <p>Files deleted after processing. Your data stays yours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP SECTION -->
+    <section class="features" style="background: var(--white); padding: 60px 0;">
+        <div class="container">
+            <h2 style="text-align:center; margin-bottom: var(--space-xl);">🗺️ Roadmap</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg);">
+                <div class="card"><h3>Phase 1</h3><p>Launch: Basic extraction, free trial.</p></div>
+                <div class="card"><h3>Phase 2</h3><p>AI Scoring, Batch processing, Pro tier.</p></div>
+                <div class="card"><h3>Phase 3</h3><p>Web dashboard, API, team sharing.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 WhatsApp Number Extractor Pro</p>
+            <p>
+                <a href="https://t.me/WhatsappHelperBot">🤖 Bot</a> &bull;
+                <a href="https://t.me/your_community_group">💬 Community</a> &bull;
+                <a href="mailto:support@yourbot.com">📧 Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple countdown timer (example – 7 days from now)
+        (function() {
+            const target = new Date();
+            target.setDate(target.getDate() + 7);
+            target.setHours(target.getHours() + 12);
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = Math.max(0, target - now);
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('mins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('secs').textContent = String(secs).padStart(2, '0');
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        })();
+    </script>
+</body>
+</html>

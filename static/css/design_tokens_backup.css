@@ -1,0 +1,99 @@
+/* ===== KOSFintech Design Tokens (Adopted from SONIC) ===== */
+:root {
+    /* Primary Colors */
+    --primary: #28a745;
+    --primary-dark: #1e8838;
+    --secondary: #007bff;
+    --accent: #ffc107;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --white: #ffffff;
+    --gray: #6c757d;
+
+    /* Gradients */
+    --gradient-main: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --step--1: clamp(12px, 1.5vw, 14px);
+    --step-0: clamp(14px, 1.8vw, 16px);
+    --step-1: clamp(18px, 2.5vw, 22px);
+    --step-2: clamp(24px, 3vw, 30px);
+    --step-3: clamp(32px, 4vw, 44px);
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+}
+
+/* Buttons */
+.btn-green {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--white) !important;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-green:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Global Reset & Typography */
+html { box-sizing: border-box; text-size-adjust: 100%; }
+*, ::before, ::after { box-sizing: inherit; }
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    font-size: var(--step-0);
+    line-height: 1.5;
+    background: var(--light);
+    color: var(--dark);
+    min-height: 100vh;
+}
+h1, h2, h3 { line-height: 1.2; word-break: break-word; }
+h1 { font-size: var(--step-3); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+
+/* Containers */
+.container, [class*="container"], .wrap, .wrapper, .content, .section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* Cards */
+.card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--space-lg);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .btn, button, [role="button"] {
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    .row, .grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    [class*="col-"], .col, .grid > * { flex: 1 1 100%; min-width: 0px; }
+}
